@@ -6,6 +6,7 @@ import About from "@/components/sections/about"
 import Contact from "@/components/sections/contact"
 import { getProjects, getAboutInfo, getTechStack } from "@/lib/data"
 import LoadingSpinner from "@/components/ui/loading-spinner"
+import { Project } from "@/lib/types"
 
 export default async function Home() {
   const [projects, aboutInfo, techStack] = await Promise.all([getProjects(), getAboutInfo(), getTechStack()])
@@ -17,7 +18,7 @@ export default async function Home() {
         <TechStack techStack={techStack} />
       </Suspense>
       <Suspense fallback={<LoadingSpinner />}>
-        <Projects projects={projects} />
+        <Projects projects={projects as { fullStack: Project[]; frontend: Project[] }} />
       </Suspense>
       <Suspense fallback={<LoadingSpinner />}>
         <About aboutInfo={aboutInfo} />
